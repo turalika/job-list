@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <link href="./stylejob.css" rel="stylesheet" type="text/css">
+  <title>Frontend Mentor | Job Listings</title>
+</head>
+<body>
+    <div class="content">
+        <div class="title">
+            <img src="./images/bg-header-desktop.svg">
+            <div :class="{'show':filterList.length > 0}" class="filter">
+                <div style="display: flex; flex-wrap: wrap;">
+                    
+                    <div v-for="(filter, idx) in filterList" class="skill">
+                        <span v-text="filter"></span>
+                        <button v-on:click="removeFilter(idx)">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"><path fill="#FFF" fill-rule="evenodd" d="M11.314 0l2.121 2.121-4.596 4.596 4.596 4.597-2.121 2.121-4.597-4.596-4.596 4.596L0 11.314l4.596-4.597L0 2.121 2.121 0l4.596 4.596L11.314 0z"/></svg>
+                        </button>
+                    </div>
+                
+                </div>
+                <a  v-on:click="clearFilter" class="clear">Clear</a>
+            </div>
+        </div>
+        
+        <div class="contentbody">
+            <div v-for="el in filterMass" :class="{'border':el.featured}" class="card">
+                <img class="icon" :src="el.logo" >
+                <div class="blokleft">
+                    <div class="titleblokleft">
+                        <span v-text="el.company"></span>
+                        <div v-if="el.new">NEW!</div>
+                        <div v-if="el.featured" class="featured">FEATURED</div>
+                    </div>
+                    <span v-text="el.position"></span>
+                    <ul class="stat">
+                        <li v-text="el.postedAt"></li>
+                        <li v-text="el.contract"></li>
+                        <li v-text="el.location"></li>
+                    </ul>
+                </div>
+                <div class="character">
+                    <div v-text="el.role" v-on:click="addFilter(el.role)" class="skill"></div>
+                    <div v-text="el.level" v-on:click="addFilter(el.level)" class="skill"></div>
+                    <div v-for="i in el.languages" v-text="i" v-on:click="addFilter(i)" class="skill"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="./scriptjob.vue.js"></script>
+</body>
+</html>
